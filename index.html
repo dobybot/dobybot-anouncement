@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Welcome — Dobybot Announcement</title>
+    <meta
+      name="description"
+      content="Welcome page for the Dobybot Announcement project."
+    />
+    <style>
+      :root {
+        --bg: #0f1724;
+        --card: #0b1220;
+        --accent: #7c3aed;
+        --muted: #9aa6bf;
+        --white: #e6eef8;
+        --radius: 12px;
+        --max-width: 1000px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+          Roboto, "Helvetica Neue", Arial;
+        color: var(--white);
+        background: linear-gradient(180deg, #071124 0%, #081426 60%);
+        -webkit-font-smoothing: antialiased;
+      }
+      .wrap {
+        max-width: var(--max-width);
+        margin: 48px auto;
+        padding: 28px;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+      .logo {
+        width: 56px;
+        height: 56px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--accent), #4c1d95);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        box-shadow: 0 6px 18px rgba(124, 58, 237, 0.18);
+      }
+      h1 {
+        margin: 0;
+        font-size: 28px;
+      }
+      p.lead {
+        color: var(--muted);
+        margin-top: 6px;
+      }
+      .card {
+        margin-top: 22px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.01)
+        );
+        padding: 26px;
+        border-radius: var(--radius);
+        box-shadow: 0 8px 30px rgba(2, 6, 23, 0.7);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 340px;
+        gap: 20px;
+      }
+      .hero {
+        padding-right: 8px;
+      }
+      .hero h2 {
+        margin-top: 6px;
+        font-size: 20px;
+      }
+      ul.features {
+        margin: 14px 0 0;
+        padding-left: 18px;
+        color: var(--muted);
+      }
+      .actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 18px;
+      }
+      .btn {
+        background: var(--accent);
+        color: white;
+        padding: 10px 14px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .btn.secondary {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        color: var(--white);
+      }
+      aside {
+        background: rgba(255, 255, 255, 0.02);
+        padding: 18px;
+        border-radius: 10px;
+      }
+      .muted {
+        color: var(--muted);
+        font-size: 14px;
+      }
+      footer {
+        margin-top: 20px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      @media (max-width: 860px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .wrap {
+          margin: 22px auto;
+          padding: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <header>
+        <div class="logo" aria-hidden>DB</div>
+        <div>
+          <h1>Dobybot Announcement</h1>
+          <p class="lead">
+            A simple, opinionated announcement bot — quick setup and lightweight
+            behavior for teams.
+          </p>
+        </div>
+      </header>
+
+      <section class="card" role="region" aria-labelledby="welcome-title">
+        <div class="grid">
+          <div class="hero">
+            <h2 id="welcome-title">Welcome 👋</h2>
+            <p class="muted">
+              This page gives a quick overview and links to get started with the
+              project.
+            </p>
+
+            <ul class="features">
+              <li>
+                <strong>Purpose:</strong> Send scheduled or manual
+                announcements.
+              </li>
+              <li>
+                <strong>Lightweight:</strong> Minimal dependencies and easy
+                deployment.
+              </li>
+              <li>
+                <strong>Extensible:</strong> Add integrations and templates.
+              </li>
+            </ul>
+
+            <div class="actions">
+              <a class="btn" href="README.md" title="Open README"
+                >Get started</a
+              >
+              <a class="btn secondary" href="#usage" title="Usage notes"
+                >Usage notes</a
+              >
+            </div>
+
+            <article id="usage" style="margin-top: 18px">
+              <h3 style="margin: 0 0 8px 0; font-size: 16px">Preview</h3>
+              <p class="muted">
+                Open <code>README.md</code> for setup instructions, or run the
+                project locally per instructions there.
+              </p>
+            </article>
+          </div>
+
+          <aside aria-label="Quick info">
+            <h4 style="margin-top: 0">Quick links</h4>
+            <ul style="padding-left: 18px; margin: 8px 0; color: var(--muted)">
+              <li>
+                <a
+                  href="README.md"
+                  style="color: var(--white); text-decoration: none"
+                  >README</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://github.com/dobybot/dobybot-anouncement"
+                  style="color: var(--white); text-decoration: none"
+                  >Repository</a
+                >
+                (GitHub)
+              </li>
+              <li><span class="muted">License:</span> MIT</li>
+            </ul>
+          </aside>
+        </div>
+
+        <footer>
+          <p>
+            Made with ❤️ by the Dobybot team. Need changes? Edit
+            <code>welcome.html</code> or ask me to customize it.
+          </p>
+        </footer>
+      </section>
+    </main>
+  </body>
+</html>
