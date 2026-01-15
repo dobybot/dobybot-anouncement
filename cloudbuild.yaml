@@ -1,82 +1,3 @@
-# # Copyright 2024 Dobybot
-# #
-# # Licensed under the Apache License, Version 2.0 (the "License");
-# # you may not use this file except in compliance with the License.
-# # You may obtain a copy of the License at
-# #
-# #      http://www.apache.org/licenses/LICENSE-2.0
-# #
-# # Unless required by applicable law or agreed to in writing, software
-# # distributed under the License is distributed on an "AS IS" BASIS,
-# # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# # See the License for the specific language governing permissions and
-# # limitations under the License.
-
-# steps:
-#   - id: "Build Container Image"
-#     name: "gcr.io/cloud-builders/docker"
-#     args:
-#       - "build"
-#       - "-t"
-#       - "${_IMAGE_NAME}"
-#       - "-t"
-#       - "${_IMAGE_NAME_LATEST}"
-#       - "."
-
-#   - id: "Push Container Image"
-#     name: "gcr.io/cloud-builders/docker"
-#     args:
-#       - "push"
-#       - "${_IMAGE_NAME}"
-
-#   - id: "Push Latest Tag"
-#     name: "gcr.io/cloud-builders/docker"
-#     args:
-#       - "push"
-#       - "${_IMAGE_NAME_LATEST}"
-
-#   - id: "Deploy to Cloud Run"
-#     name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
-#     entrypoint: /bin/bash
-#     args:
-#       - "-c"
-#       - |
-#         gcloud run deploy ${_SERVICE_NAME} \
-#           --region ${_REGION} \
-#           --image ${_IMAGE_NAME} \
-#           --platform managed \
-#           --allow-unauthenticated \
-#           --port ${_PORT} \
-#           --memory ${_MEMORY} \
-#           --cpu ${_CPU} \
-#           --min-instances ${_MIN_INSTANCES} \
-#           --max-instances ${_MAX_INSTANCES} \
-#           --timeout ${_TIMEOUT}
-
-# options:
-#   logging: CLOUD_LOGGING_ONLY
-#   machineType: "E2_HIGHCPU_8"
-#   dynamicSubstitutions: true
-#   defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
-
-# substitutions:
-#   _REGION: asia-southeast1
-#   _SERVICE_NAME: dobybot-announcement
-#   _ARTIFACT_REGISTRY: dobybot-announcement
-#   _IMAGE_NAME: gcr.io/${PROJECT_ID}/${_SERVICE_NAME}:${SHORT_SHA}
-#   _IMAGE_NAME_LATEST: gcr.io/${PROJECT_ID}/${_SERVICE_NAME}:latest
-#   _PORT: "8080"
-#   _MEMORY: 256Mi
-#   _CPU: "1"
-#   _MIN_INSTANCES: "0"
-#   _MAX_INSTANCES: "10"
-#   _TIMEOUT: 300s
-
-# images:
-#   - "${_IMAGE_NAME}"
-#   - "${_IMAGE_NAME_LATEST}"
-
-# timeout: "1200s"
 steps:
   - id: "Build Container Image"
     name: "gcr.io/cloud-builders/docker"
@@ -118,6 +39,41 @@ steps:
           --max-instances ${_MAX_INSTANCES} \
           --timeout ${_TIMEOUT}
 
+  - id: "Send Discord Notification"
+    name: "gcr.io/cloud-builders/curl"
+    args:
+      - "-X"
+      - "POST"
+      - "${_DISCORD_WEBHOOK_URL}"
+      - "-H"
+      - "Content-Type: application/json"
+      - "-d"
+      - |
+        {
+          "embeds": [{
+            "title": "✅ Build and Deploy Successful",
+            "description": "Finished build and deploy to Cloud Run",
+            "color": 3066993,
+            "fields": [
+              {
+                "name": "Service",
+                "value": "${_SERVICE_NAME}",
+                "inline": true
+              },
+              {
+                "name": "Region",
+                "value": "${_REGION}",
+                "inline": true
+              },
+              {
+                "name": "Commit SHA",
+                "value": "${SHORT_SHA}",
+                "inline": true
+              }
+            ]
+          }]
+        }
+
 options:
   logging: CLOUD_LOGGING_ONLY
   machineType: "E2_HIGHCPU_8"
@@ -137,6 +93,8 @@ substitutions:
   _MIN_INSTANCES: "0"
   _MAX_INSTANCES: "10"
   _TIMEOUT: 300s
+  # Discord webhook URL - set this in your Cloud Build trigger settings
+  _DISCORD_WEBHOOK_URL: "https://discord.com/api/webhooks/1414832736421810207/HyzAf6thTnhd6gu_EE2bw5oZdBcN7weYJ6w_SCwr--jnZtD3zNhuVbPjfiLt-O1BDN5U"
 
 images:
   - "${_IMAGE_NAME}"
