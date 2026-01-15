@@ -1,1 +1,1 @@
-# Dobybot Anouncement
+# Dobybot Announcement
