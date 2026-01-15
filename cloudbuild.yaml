@@ -41,47 +41,38 @@ steps:
 
   - id: "Send Discord Notification"
     name: "gcr.io/cloud-builders/curl"
-    entrypoint: /bin/sh
     args:
-      - "-c"
+      - "-X"
+      - "POST"
+      - "${_DISCORD_WEBHOOK_URL}"
+      - "-H"
+      - "Content-Type: application/json"
+      - "-d"
       - |
-        curl -X POST "${_DISCORD_WEBHOOK_URL}" \
-          -H "Content-Type: application/json" \
-          -d '{
-            "embeds": [{
-              "title": "✅ Build and Deploy Successful",
-              "description": "Finished build and deploy to Cloud Run",
-              "color": 3066993,
-              "fields": [
-                {
-                  "name": "Service",
-                  "value": "'"${_SERVICE_NAME}"'",
-                  "inline": true
-                },
-                {
-                  "name": "Region",
-                  "value": "'"${_REGION}"'",
-                  "inline": true
-                },
-                {
-                  "name": "Image",
-                  "value": "'"${_IMAGE_NAME}"'",
-                  "inline": false
-                },
-                {
-                  "name": "Build ID",
-                  "value": "'"${BUILD_ID}"'",
-                  "inline": true
-                },
-                {
-                  "name": "Commit SHA",
-                  "value": "'"${SHORT_SHA}"'",
-                  "inline": true
-                }
-              ],
-              "timestamp": "'"$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"'"
-            }]
-          }'
+        {
+          "embeds": [{
+            "title": "✅ Build and Deploy Successful",
+            "description": "Finished build and deploy to Cloud Run",
+            "color": 3066993,
+            "fields": [
+              {
+                "name": "Service",
+                "value": "${_SERVICE_NAME}",
+                "inline": true
+              },
+              {
+                "name": "Region",
+                "value": "${_REGION}",
+                "inline": true
+              },
+              {
+                "name": "Commit SHA",
+                "value": "${SHORT_SHA}",
+                "inline": true
+              }
+            ]
+          }]
+        }
 
 options:
   logging: CLOUD_LOGGING_ONLY
