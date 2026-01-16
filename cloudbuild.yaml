@@ -49,16 +49,6 @@ steps:
           --max-instances ${_MAX_INSTANCES} \
           --timeout ${_TIMEOUT}
 
-  - id: "Pull Tolgee Translations"
-    name: "node:18"
-    entrypoint: /bin/bash
-    args:
-      - "-c"
-      - |
-        echo "Pulling translations from Tolgee..."
-        npx @tolgee/cli pull --api-key ${_TOLGEE_API_KEY} --api-url ${_TOLGEE_API_URL}
-        echo "Translations updated successfully!"
-
   - id: "Send Discord Notification"
     name: "gcr.io/cloud-builders/curl"
     args:
