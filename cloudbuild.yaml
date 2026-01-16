@@ -55,7 +55,6 @@ steps:
     args:
       - "-c"
       - |
-        COMMIT_MSG=$(git log -1 --pretty=%B)
         curl -X POST "${_DISCORD_WEBHOOK_URL}" \
           -H "Content-Type: application/json" \
           -d "{
@@ -75,11 +74,6 @@ steps:
                   \"inline\": true
                 },
               
-                {
-                  \"name\": \"Commit Message\",
-                  \"value\": \"$COMMIT_MSG\",
-                  \"inline\": false
-                },
                   {
                   \"name\": \"Commit SHA\",
                   \"value\": \"${SHORT_SHA}\",
