@@ -73,17 +73,16 @@ steps:
                   \"value\": \"${BRANCH_NAME}\",
                   \"inline\": true
                 },
-              
-                  {
+                {
                   \"name\": \"Commit SHA\",
                   \"value\": \"${SHORT_SHA}\",
                   \"inline\": true
                 },
-                 {
+                {
                   \"name\": \"Region\",
                   \"value\": \"${_REGION}\",
                   \"inline\": true
-                },
+                }
               ]
             }]
           }"
