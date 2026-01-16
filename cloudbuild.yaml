@@ -50,39 +50,49 @@ steps:
           --timeout ${_TIMEOUT}
 
   - id: "Send Discord Notification"
-    name: "gcr.io/cloud-builders/curl"
+    name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: /bin/bash
     args:
-      - "-X"
-      - "POST"
-      - "${_DISCORD_WEBHOOK_URL}"
-      - "-H"
-      - "Content-Type: application/json"
-      - "-d"
+      - "-c"
       - |
-        {
-          "embeds": [{
-            "title": "✅ Build and Deploy Successful",
-            "description": "Finished build and deploy to Cloud Run",
-            "color": 3066993,
-            "fields": [
-              {
-                "name": "Service",
-                "value": "${_SERVICE_NAME}",
-                "inline": true
-              },
-              {
-                "name": "Region",
-                "value": "${_REGION}",
-                "inline": true
-              },
-              {
-                "name": "Commit SHA",
-                "value": "${SHORT_SHA}",
-                "inline": true
-              }
-            ]
-          }]
-        }
+        COMMIT_MSG=$(git log -1 --pretty=%B)
+        curl -X POST "${_DISCORD_WEBHOOK_URL}" \
+          -H "Content-Type: application/json" \
+          -d "{
+            \"embeds\": [{
+              \"title\": \"✅ Build and Deploy Successful\",
+              \"description\": \"Finished build and deploy to Cloud Run\",
+              \"color\": 3066993,
+              \"fields\": [
+                {
+                  \"name\": \"Service\",
+                  \"value\": \"${_SERVICE_NAME}\",
+                  \"inline\": true
+                },
+                {
+                  \"name\": \"Branch\",
+                  \"value\": \"${BRANCH_NAME}\",
+                  \"inline\": true
+                },
+              
+                {
+                  \"name\": \"Commit Message\",
+                  \"value\": \"$COMMIT_MSG\",
+                  \"inline\": false
+                },
+                  {
+                  \"name\": \"Commit SHA\",
+                  \"value\": \"${SHORT_SHA}\",
+                  \"inline\": true
+                },
+                 {
+                  \"name\": \"Region\",
+                  \"value\": \"${_REGION}\",
+                  \"inline\": true
+                },
+              ]
+            }]
+          }"
 
 options:
   logging: CLOUD_LOGGING_ONLY
