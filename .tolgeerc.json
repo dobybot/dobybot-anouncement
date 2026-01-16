@@ -1,0 +1,41 @@
+{
+    "$schema": "https://docs.tolgee.io/cli-schema.json",
+    "projectId": 2,
+    "apiUrl": "https://tolgee.doby.me",
+    "apiKey": "tgpak_gjpxamdonnxxe2tdonqxkmzzgrrdgn3qgbvhay3kmz2ge",
+    "format": "JSON_TOLGEE",
+    "defaultNamespace": "translation",
+    "patterns": [
+        "./**/*.vue"
+    ],
+    "push": {
+        "files": [
+            {
+                "path": "./lang/translation/th.json",
+                "language": "th",
+                "namespace": "translation"
+            },
+            {
+                "path": "./lang/translation/en.json",
+                "language": "en",
+                "namespace": "translation"
+            },
+            {
+                "path": "./lang/translation/zh-Hans.json",
+                "language": "zh-Hans",
+                "namespace": "translation"
+            },
+            {
+                "path": "./lang/translation/zh-Hant.json",
+                "language": "zh-Hant",
+                "namespace": "translation"
+            }
+        ]
+    },
+    "pull": {
+        "path": "./lang",
+        "namespaces": [
+            "translation"
+        ]
+    }
+}

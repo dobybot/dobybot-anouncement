@@ -1,4 +1,14 @@
 steps:
+  - id: "Pull Translations from Tolgee"
+    name: "node:18"
+    entrypoint: /bin/bash
+    args:
+      - "-c"
+      - |
+        echo "Pulling translations from Tolgee..."
+        npx @tolgee/cli pull
+        echo "Translations updated successfully!"
+
   - id: "Build Container Image"
     name: "gcr.io/cloud-builders/docker"
     args:
@@ -40,39 +50,42 @@ steps:
           --timeout ${_TIMEOUT}
 
   - id: "Send Discord Notification"
-    name: "gcr.io/cloud-builders/curl"
+    name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: /bin/bash
     args:
-      - "-X"
-      - "POST"
-      - "${_DISCORD_WEBHOOK_URL}"
-      - "-H"
-      - "Content-Type: application/json"
-      - "-d"
+      - "-c"
       - |
-        {
-          "embeds": [{
-            "title": "✅ Build and Deploy Successful",
-            "description": "Finished build and deploy to Cloud Run",
-            "color": 3066993,
-            "fields": [
-              {
-                "name": "Service",
-                "value": "${_SERVICE_NAME}",
-                "inline": true
-              },
-              {
-                "name": "Region",
-                "value": "${_REGION}",
-                "inline": true
-              },
-              {
-                "name": "Commit SHA",
-                "value": "${SHORT_SHA}",
-                "inline": true
-              }
-            ]
-          }]
-        }
+        curl -X POST "${_DISCORD_WEBHOOK_URL}" \
+          -H "Content-Type: application/json" \
+          -d "{
+            \"embeds\": [{
+              \"title\": \"✅ Build and Deploy Successful\",
+              \"description\": \"Finished build and deploy to Cloud Run\",
+              \"color\": 3066993,
+              \"fields\": [
+               {
+                  \"name\": \"Branch\",
+                  \"value\": \"${BRANCH_NAME}\",
+                  \"inline\": true
+                },
+                {
+                  \"name\": \"Service\",
+                  \"value\": \"${_SERVICE_NAME}\",
+                  \"inline\": true
+                },
+                {
+                  \"name\": \"Commit SHA\",
+                  \"value\": \"${SHORT_SHA}\",
+                  \"inline\": true
+                },
+                {
+                  \"name\": \"Region\",
+                  \"value\": \"${_REGION}\",
+                  \"inline\": true
+                }
+              ]
+            }]
+          }"
 
 options:
   logging: CLOUD_LOGGING_ONLY
@@ -93,8 +106,7 @@ substitutions:
   _MIN_INSTANCES: "0"
   _MAX_INSTANCES: "10"
   _TIMEOUT: 300s
-  # Discord webhook URL - set this in your Cloud Build trigger settings
-  _DISCORD_WEBHOOK_URL: "https://discord.com/api/webhooks/1414832736421810207/HyzAf6thTnhd6gu_EE2bw5oZdBcN7weYJ6w_SCwr--jnZtD3zNhuVbPjfiLt-O1BDN5U"
+  _DISCORD_WEBHOOK_URL: ""
 
 images:
   - "${_IMAGE_NAME}"
