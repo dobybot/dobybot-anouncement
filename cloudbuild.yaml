@@ -103,8 +103,7 @@ substitutions:
   _MIN_INSTANCES: "0"
   _MAX_INSTANCES: "10"
   _TIMEOUT: 300s
-  # Discord webhook URL - set this in your Cloud Build trigger settings
-  _DISCORD_WEBHOOK_URL: "https://discord.com/api/webhooks/1414832736421810207/HyzAf6thTnhd6gu_EE2bw5oZdBcN7weYJ6w_SCwr--jnZtD3zNhuVbPjfiLt-O1BDN5U"
+  _DISCORD_WEBHOOK_URL: ""
 
 images:
   - "${_IMAGE_NAME}"
