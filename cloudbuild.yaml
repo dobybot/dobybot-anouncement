@@ -2,6 +2,8 @@ steps:
   - id: "Pull Translations from Tolgee"
     name: "node:18"
     entrypoint: /bin/bash
+    env:
+      - "TOLGEE_API_KEY=${_TOLGEE_API_KEY}"
     args:
       - "-c"
       - |
@@ -107,6 +109,7 @@ substitutions:
   _MAX_INSTANCES: "10"
   _TIMEOUT: 300s
   _DISCORD_WEBHOOK_URL: ""
+  _TOLGEE_API_KEY: ""
 
 images:
   - "${_IMAGE_NAME}"
