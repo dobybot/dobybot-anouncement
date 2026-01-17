@@ -2,6 +2,7 @@
     "$schema": "https://docs.tolgee.io/cli-schema.json",
     "projectId": 2,
     "apiUrl": "https://tolgee.doby.me",
+    "apiKey": "your-tolgee-api-key-here",
     "format": "JSON_TOLGEE",
     "defaultNamespace": "translation",
     "patterns": [
@@ -38,3 +39,4 @@
         ]
     }
 }
+
