@@ -1,18 +1,16 @@
 steps:
-  - id: "Pull Translations from Tolgee (Python)"
-    name: "python:3.11"
+  - id: "Pull Translations from Tolgee (Backend)"
+    name: "node:18"
     entrypoint: /bin/bash
     env:
       - "TOLGEE_API_KEY=${_TOLGEE_API_KEY}"
     args:
       - "-c"
       - |
-        echo "Pulling translations from Tolgee..."
-        pip install nodeenv
-        nodeenv -p
+        echo "Pulling backend translations from Tolgee..."
         npm install -g @tolgee/cli
-        tolgee pull --format json --path ./locale
-        echo "Translations updated successfully!"
+        tolgee pull
+        echo "Backend translations updated successfully!"
 
   - id: "Pull Translations from Tolgee (Node)"
     name: "node:18"
