@@ -1,5 +1,5 @@
 steps:
-  - id: "Pull Translations from Tolgee"
+  - id: "Pull Translations from Tolgee (Python)"
     name: "python:3.11"
     entrypoint: /bin/bash
     env:
@@ -14,7 +14,7 @@ steps:
         tolgee pull --format json --path ./locale
         echo "Translations updated successfully!"
 
-  - id: "Pull Translations from Tolgee"
+  - id: "Pull Translations from Tolgee (Node)"
     name: "node:18"
     entrypoint: /bin/bash
     env:
