@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="th"> <!-- ภาษาไทย -->
+
+<head>
+    <meta charset="UTF-8"> <!-- รองรับภาษาไทยและอักขระพิเศษ -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- ปรับขนาดให้เหมาะกับมือถือ -->
+    <title>ประกาศวันหยุดสงกรานต์ - Dobybot</title> <!-- ชื่อแท็บในเบราว์เซอร์ -->
+
+    <!-- โหลดฟอนต์ภาษาไทยจาก Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;700;900&family=Sarabun:wght@400;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ===== CSS Variables: สีหลักทั้งหน้า แก้ไขที่นี่เพื่อเปลี่ยนธีมสี ===== */
+        :root {
+            --sky: #29C5F6;
+            /* สีฟ้าหลัก */
+            --sky-dark: #0eabd9;
+            /* สีฟ้าเข้ม */
+            --red: #e63535;
+            /* สีแดง (วันหยุด) */
+            --green: #1cb86a;
+            /* สีเขียว (วันเปิด) */
+            --text-dark: #1a3a4a;
+            /* สีข้อความเข้ม */
+            --card-bg: rgba(255, 255, 255, 0.95);
+            /* สีพื้นการ์ด */
+        }
+
+        /* ===== Reset box model ===== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            /* รวม border และ padding ใน width/height */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ===== พื้นหลังทั้งหน้า ===== */
+        body {
+            min-height: 100vh;
+            /* ความสูงเต็มหน้าจอ */
+            background: linear-gradient(160deg, var(--sky) 0%, var(--sky-dark) 100%);
+            /* ไล่สีฟ้า */
+            display: flex;
+            /* จัดกลาง */
+            align-items: center;
+            justify-content: center;
+            font-family: 'Noto Sans Thai', 'Sarabun', sans-serif;
+            /* ฟอนต์ภาษาไทย */
+            padding: 16px 12px;
+            /* ระยะห่างรอบๆ */
+            overflow-x: hidden;
+            /* ซ่อน scrollbar แนวนอน */
+        }
+
+        /* ===== วงกลมตกแต่งมุมซ้ายบน ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            /* ติดหน้าจอ ไม่เลื่อนตาม scroll */
+            top: -80px;
+            left: -80px;
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.12);
+            /* ขาวโปร่งแสง */
+            pointer-events: none;
+            /* ไม่รับ click */
+        }
+
+        /* ===== วงกลมตกแต่งมุมขวาล่าง ===== */
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -100px;
+            right: -60px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.10);
+            pointer-events: none;
+        }
+
+        /* ===== wrapper: จัดการ์ด + footer ให้อยู่ในคอลัมน์เดียว ===== */
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            /* เรียงแนวตั้ง */
+            align-items: center;
+            /* จัดกลาง */
+            gap: 16px;
+            /* ระยะห่างระหว่างการ์ดกับ footer */
+            width: 100%;
+            max-width: 390px;
+            /* ความกว้างสูงสุดพอดีมือถือ */
+        }
+
+        /* ===== การ์ดหลัก ===== */
+        .card {
+            background: var(--card-bg);
+            /* พื้นขาว */
+            border-radius: 24px;
+            /* มุมโค้งมน */
+            box-shadow:
+                0 8px 40px rgba(14, 171, 217, 0.25),
+                /* เงาฟ้า */
+                0 2px 8px rgba(0, 0, 0, 0.08);
+            /* เงาดำเบาๆ */
+            width: 100%;
+            overflow: hidden;
+            /* ซ่อนส่วนที่เกินขอบการ์ด */
+            animation: fadeUp 0.7s cubic-bezier(.22, 1, .36, 1) both;
+            /* แอนิเมชันลอยขึ้น */
+        }
+
+        /* ===== แอนิเมชัน: ลอยขึ้นจากล่าง ===== */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            /* เริ่มจากล่าง-โปร่งใส */
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            /* จบที่ตำแหน่งปกติ */
+        }
+
+        /* ===== ส่วนบน: รูปภาพ Dobybot สงกรานต์ ===== */
+        .card-image {
+            width: 100%;
+            /* เต็มความกว้างการ์ด */
+            display: block;
+            /* ไม่ให้มีช่องว่างด้านล่าง (inline gap) */
+            aspect-ratio: 1 / 1;
+            /* รักษาสัดส่วน 1:1 (สี่เหลี่ยมจัตุรัส) */
+            object-fit: cover;
+            /* ครอบรูปให้เต็มพื้นที่โดยไม่บิดเบี้ยว */
+            object-position: center;
+            /* จัดรูปให้อยู่กลาง */
+        }
+
+        /* ===== ส่วนล่าง: เนื้อหาข้อความ ===== */
+        .card-body {
+            padding: 20px 18px 22px;
+            /* ระยะห่างภายใน (บน ซ้าย-ขวา ล่าง) */
+        }
+
+        /* ===== แถบสีฟ้าคั่นระหว่างรูปกับเนื้อหา ===== */
+        .card-body::before {
+            content: '';
+            display: block;
+            height: 4px;
+            /* ความสูงแถบ */
+            background: linear-gradient(90deg, var(--sky), var(--sky-dark));
+            /* ไล่สีฟ้า */
+            margin: 0 0 18px;
+            /* ระยะห่างด้านล่าง */
+            border-radius: 2px;
+        }
+
+        /* ===== ไอคอนประกาศ (📢) ===== */
+        .announce-icon {
+            text-align: center;
+            font-size: 2rem;
+            /* ขนาดอีโมจิ */
+            margin-bottom: 6px;
+            animation: wave 2s ease-in-out infinite;
+            /* ส่ายไปมา */
+        }
+
+        /* ===== แอนิเมชัน: ส่ายไปมา ===== */
+        @keyframes wave {
+
+            0%,
+            100% {
+                transform: rotate(-8deg);
+            }
+
+            /* เอียงซ้าย */
+            50% {
+                transform: rotate(8deg);
+            }
+
+            /* เอียงขวา */
+        }
+
+        /* ===== หัวข้อหลัก ===== */
+        .main-title {
+            text-align: center;
+            font-size: 1.35rem;
+            /* ขนาดตัวอักษรหลัก */
+            font-weight: 900;
+            color: var(--text-dark);
+            line-height: 1.3;
+            margin-bottom: 18px;
+        }
+
+        /* ===== ข้อความ "สงกรานต์": ไล่สีฟ้า ===== */
+        .main-title span {
+            background: linear-gradient(90deg, var(--sky-dark), #0090c0);
+            /* ไล่สีฟ้าเข้ม */
+            -webkit-background-clip: text;
+            /* ตัดพื้นหลังตามรูปอักษร */
+            -webkit-text-fill-color: transparent;
+            /* ทำตัวอักษรโปร่งใสให้เห็น gradient */
+            background-clip: text;
+        }
+
+        /* ===== กลุ่มแถวข้อมูลวันที่ ===== */
+        .info-rows {
+            display: flex;
+            flex-direction: column;
+            /* เรียงแนวตั้ง */
+            gap: 10px;
+            /* ระยะห่างระหว่างแถว */
+            margin-bottom: 18px;
+        }
+
+        /* ===== แถวข้อมูลแต่ละรายการ ===== */
+        .info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            /* ระยะห่างระหว่างไอคอนกับข้อความ */
+            background: rgba(41, 197, 246, 0.07);
+            /* พื้นฟ้าอ่อนๆ */
+            border-radius: 14px;
+            padding: 12px 14px;
+            border-left: 4px solid transparent;
+            /* เตรียมขอบซ้าย (กำหนดสีด้านล่าง) */
+            transition: transform 0.2s;
+            /* แอนิเมชัน hover */
+        }
+
+        /* ===== เอฟเฟกต์ hover: เลื่อนขวา ===== */
+        .info-row:hover {
+            transform: translateX(4px);
+        }
+
+        /* ===== ขอบซ้ายสีแดง: วันหยุด ===== */
+        .info-row.closed {
+            border-left-color: var(--red);
+        }
+
+        /* ===== ขอบซ้ายสีเขียว: วันเปิด ===== */
+        .info-row.open {
+            border-left-color: var(--green);
+        }
+
+        /* ===== ไอคอน (🛑 / 🟢) ===== */
+        .row-icon {
+            font-size: 1.2rem;
+            /* ขนาดอีโมจิ */
+            flex-shrink: 0;
+            /* ไม่ให้หดขนาด */
+            margin-top: 2px;
+        }
+
+        /* ===== กล่องข้อความในแถว ===== */
+        .row-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        /* ===== ป้ายกำกับ (เช่น "หยุดทำการ") ===== */
+        .row-label {
+            font-size: 0.7rem;
+            /* เล็กกว่าวันที่ */
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            /* ตัวพิมพ์ใหญ่ */
+        }
+
+        /* ===== สีป้ายกำกับแต่ละประเภท ===== */
+        .closed .row-label {
+            color: var(--red);
+        }
+
+        /* สีแดง: วันหยุด */
+        .open .row-label {
+            color: var(--green);
+        }
+
+        /* สีเขียว: วันเปิด */
+
+        /* ===== ข้อความวันที่ ===== */
+        .row-date {
+            font-size: 0.92rem;
+            /* ขนาดปกติ */
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        /* ===== เส้นคั่น ===== */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(41, 197, 246, 0.3), transparent);
+            /* ฟ้าจางๆ */
+            margin: 0 0 16px;
+        }
+
+        /* ===== กล่องข้อความอวยพร ===== */
+        .wish-box {
+            background: linear-gradient(135deg, rgba(41, 197, 246, 0.13), rgba(14, 171, 217, 0.08));
+            /* ฟ้าอ่อน */
+            border-radius: 14px;
+            padding: 14px 16px;
+            text-align: center;
+        }
+
+        /* ===== ข้อความอวยพร ===== */
+        .wish-text {
+            font-size: 0.9rem;
+            /* ขนาดข้อความ */
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        /* ===== อีโมจิในข้อความอวยพร ===== */
+        .wish-text .emoji {
+            font-size: 1.1rem;
+        }
+
+        /* ใหญ่กว่าข้อความเล็กน้อย */
+
+        /* ===== Footer: ข้อมูลติดต่อ (อยู่นอกการ์ด) ===== */
+        .footer {
+            display: flex;
+            flex-wrap: wrap;
+            /* ขึ้นบรรทัดใหม่เมื่อจอแคบ */
+            justify-content: center;
+            gap: 8px 14px;
+            /* ระยะห่างแนวตั้ง/แนวนอน */
+            width: 100%;
+        }
+
+        /* ===== แต่ละรายการใน footer ===== */
+        .footer-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.72rem;
+            /* ขนาดเล็ก */
+            color: rgba(255, 255, 255, 0.88);
+            /* ขาวโปร่งแสง */
+            font-weight: 600;
+        }
+
+        /* ===== ไอคอนใน footer ===== */
+        .footer-item .fi {
+            font-size: 0.88rem;
+        }
+
+        /* ขนาดไอคอน */
+
+        /* ===== Responsive: มือถือเล็กกว่า 360px ===== */
+        @media (max-width: 360px) {
+            .main-title {
+                font-size: 1.15rem;
+            }
+
+            /* ลดหัวข้อ */
+            .row-date {
+                font-size: 0.82rem;
+            }
+
+            /* ลดวันที่ */
+            .footer-item {
+                font-size: 0.65rem;
+            }
+
+            /* ลด footer */
+            .card-body {
+                padding: 16px 14px 18px;
+            }
+
+            /* ลด padding */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== Wrapper: ห่อการ์ดและ footer ===== -->
+    <div class="wrapper">
+
+        <!-- ===== การ์ดหลัก ===== -->
+        <div class="card">
+
+            <!-- ===== รูปภาพ Dobybot สงกรานต์ (embedded base64) ===== -->
+            <!-- หากต้องการเปลี่ยนรูป: แทนที่ค่า base64 ด้านล่าง หรือเปลี่ยน src เป็น URL รูปใหม่ -->
+            <img class="card-image"
+                src="https://storage.googleapis.com/dobybot-public-bucket/company/13/public/7dc798833dc3513c.jpeg"
+                alt="Dobybot สุขสันต์วันสงกรานต์">
+
+            <!-- ===== เนื้อหาข้อความด้านล่างรูป ===== -->
+            <div class="card-body">
+
+                <!-- ไอคอนประกาศส่ายไปมา -->
+                <div class="announce-icon">📢</div>
+
+                <!-- หัวข้อหลัก: แก้ไขข้อความที่นี่ -->
+                <h1 class="main-title">
+                    แจ้งวันหยุดช่วง<br>
+                    <span>สงกรานต์</span> <!-- ข้อความนี้จะแสดงเป็นสีฟ้าไล่เฉด -->
+                </h1>
+
+                <!-- ===== กล่องข้อมูลวันที่ ===== -->
+                <div class="info-rows">
+
+                    <!-- แถวที่ 1: วันหยุดทำการ — แก้วันที่ใน .row-date -->
+                    <div class="info-row closed">
+                        <span class="row-icon">🛑</span> <!-- ไอคอน stop -->
+                        <div class="row-text">
+                            <span class="row-label">หยุดทำการ</span>
+                            <span class="row-date">วันที่ 13 เมษายน 2569 – 15 เมษายน 2569</span>
+                            <!-- แก้วันที่หยุดที่นี่ -->
+                        </div>
+                    </div>
+
+                    <!-- แถวที่ 2: วันเปิดทำการ — แก้วันที่ใน .row-date -->
+                    <div class="info-row open">
+                        <span class="row-icon">🟢</span> <!-- ไอคอน open -->
+                        <div class="row-text">
+                            <span class="row-label">เปิดทำการตามปกติ</span>
+                            <span class="row-date">วันที่ 16 เมษายน 2569</span>
+                            <!-- แก้วันเปิดที่นี่ -->
+                        </div>
+                    </div>
+
+                </div><!-- /.info-rows -->
+
+                <!-- เส้นคั่น -->
+                <div class="divider"></div>
+
+                <!-- ===== กล่องอวยพร — แก้ข้อความที่นี่ ===== -->
+                <div class="wish-box">
+                    <p class="wish-text">
+                        สุขสันต์วันปีใหม่ไทย <span class="emoji">🙏</span><br>
+                        ขอให้มีแต่ความสุขตลอดปีค่ะ <span class="emoji">💙</span>
+                    </p>
+                </div>
+
+            </div><!-- /.card-body -->
+        </div><!-- /.card -->
+
+        <!-- ===== Footer: ข้อมูลติดต่อ (อยู่นอกการ์ด) ===== -->
+        <footer class="footer">
+
+            <!-- Facebook — แก้ชื่อ Page ที่นี่ -->
+            <div class="footer-item">
+                <span class="fi">📘</span>
+                <span>Dobybot – Warehouse Packing Solution</span>
+            </div>
+
+            <!-- เว็บไซต์ — แก้ URL ที่นี่ -->
+            <div class="footer-item">
+                <span class="fi">🌐</span>
+                <span>www.dobybot.com</span>
+            </div>
+
+            <!-- LINE — แก้ ID ที่นี่ -->
+            <div class="footer-item">
+                <span class="fi">💬</span>
+                <span>@dobybot</span>
+            </div>
+
+            <!-- เบอร์โทร — แก้เบอร์ที่นี่ -->
+            <div class="footer-item">
+                <span class="fi">📞</span>
+                <span>02-662-8500</span>
+            </div>
+
+        </footer><!-- /.footer -->
+
+    </div><!-- /.wrapper -->
+
+</body>
+
+</html>
