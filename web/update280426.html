@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>แจ้งอัพเดตระบบ</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f0f6f8;
+            --surface: #ffffff;
+            --surface2: #e8f4f8;
+            --border: #c8e2ea;
+            --accent: #2bbfd4;
+            --accent2: #1aa8bd;
+            --accent3: #f07b7b;
+            --text: #1a3040;
+            --text-muted: #6a99ab;
+            --text-dim: #3a6070;
+            --green: #10b981;
+            --red: #f07b7b;
+            --tag-bg: #d6f0f5;
+            --tag-text: #0e8fa3;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans Thai', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: linear-gradient(135deg, #1a8fa3 0%, #2bbfd4 60%, #1da8be 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -40px;
+            left: -40px;
+            width: 160px;
+            height: 160px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .header-inner {
+            position: relative;
+            z-index: 1;
+            padding: 24px 20px 20px;
+        }
+
+        .maintenance-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            margin-bottom: 14px;
+            animation: pulse-badge 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-badge {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 0 6px rgba(255, 255, 255, 0);
+            }
+        }
+
+        .badge-dot {
+            width: 6px;
+            height: 6px;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: blink 1.2s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .header-title span {
+            color: #d6f5fa;
+        }
+
+        .time-card {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 12px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .time-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .time-label {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 3px;
+            letter-spacing: 0.3px;
+        }
+
+        .time-value {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 15px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .time-note {
+            font-size: 11px;
+            color: #ffe0b2;
+            margin-top: 3px;
+        }
+
+        /* ===== CONTENT ===== */
+        .content {
+            padding: 0 16px;
+        }
+
+        .section-divider {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 24px 0 14px;
+        }
+
+        .section-num {
+            width: 26px;
+            height: 26px;
+            background: var(--accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .section-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dim);
+            letter-spacing: 0.3px;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .feature-header {
+            padding: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .feature-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+
+        .feature-tag {
+            display: inline-block;
+            background: var(--tag-bg);
+            color: var(--tag-text);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 6px;
+            margin-bottom: 5px;
+            letter-spacing: 0.3px;
+        }
+
+        .feature-desc {
+            font-size: 13.5px;
+            line-height: 1.65;
+            color: var(--text-dim);
+        }
+
+        /* Image grid */
+        .img-section {
+            padding: 12px;
+        }
+
+        .img-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .img-grid-1 {
+            display: block;
+        }
+
+        .img-wrap {
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: #060a14;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .img-wrap:active {
+            transform: scale(0.98);
+        }
+
+        .img-wrap img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .img-caption {
+            padding: 6px 8px;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 500;
+            background: var(--surface2);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .img-caption::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .cap-inc::before {
+            background: var(--green);
+        }
+
+        .cap-exc::before {
+            background: var(--accent3);
+        }
+
+        /* Subgroup label */
+        .sub-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            padding: 8px 12px 4px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        /* JSON Block */
+        .json-section {
+            padding: 12px;
+        }
+
+        .json-toggle {
+            width: 100%;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+            color: var(--text-dim);
+            font-family: 'Noto Sans Thai', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.2s;
+        }
+
+        .json-toggle:active {
+            background: #1f2f4a;
+        }
+
+        .json-arrow {
+            font-size: 10px;
+            transition: transform 0.3s;
+            color: var(--accent);
+        }
+
+        .json-toggle.open .json-arrow {
+            transform: rotate(180deg);
+        }
+
+        .json-body {
+            display: none;
+            margin-top: 8px;
+            background: #1a3040;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px;
+            overflow-x: auto;
+            max-height: 320px;
+            overflow-y: auto;
+        }
+
+        .json-body.visible {
+            display: block;
+        }
+
+        .json-body pre {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10.5px;
+            color: #7dd3fc;
+            line-height: 1.7;
+            white-space: pre;
+        }
+
+        .json-key {
+            color: #7dd3fc;
+        }
+
+        .json-str {
+            color: #86efac;
+        }
+
+        .json-num {
+            color: #fbbf24;
+        }
+
+        .json-bool {
+            color: #f472b6;
+        }
+
+        /* Bullet list */
+        .bullet-list {
+            padding: 12px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .bullet-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: var(--text-dim);
+        }
+
+        .bullet-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent2);
+            border-radius: 50%;
+            margin-top: 7px;
+            flex-shrink: 0;
+        }
+
+        .bullet-highlight {
+            background: rgba(240, 123, 123, 0.06);
+            border: 1px solid rgba(240, 123, 123, 0.2);
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 13px;
+            color: #c84040;
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+        }
+
+        /* Performance card */
+        .perf-card {
+            margin: 8px 16px 16px;
+            background: linear-gradient(135deg, rgba(43, 191, 212, 0.06), rgba(61, 214, 234, 0.03));
+            border: 1px solid rgba(43, 191, 212, 0.25);
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .perf-icon {
+            font-size: 28px;
+        }
+
+        .perf-title {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--accent2);
+            margin-bottom: 4px;
+        }
+
+        .perf-desc {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .footer {
+            margin: 28px 16px 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .footer-bot {
+            font-size: 28px;
+            margin-bottom: 8px;
+            animation: bob 2.5s ease-in-out infinite;
+        }
+
+        @keyframes bob {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-4px);
+            }
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 12px;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Animate in */
+        .feature-card {
+            animation: slideUp 0.4s ease both;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-card:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .feature-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .feature-card:nth-child(3) {
+            animation-delay: 0.15s;
+        }
+
+        .feature-card:nth-child(4) {
+            animation-delay: 0.2s;
+        }
+
+        .feature-card:nth-child(5) {
+            animation-delay: 0.25s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-inner">
+            <div class="maintenance-badge">
+                <div class="badge-dot"></div>
+                SYSTEM MAINTENANCE
+            </div>
+            <div class="header-title">
+                แจ้งปรับปรุงอัพเดตระบบ<br>
+                <span>28 เมษายน 2569</span>
+            </div>
+            <div class="time-card">
+                <div class="time-icon">🕕</div>
+                <div>
+                    <div class="time-label">ช่วงเวลาปิดปรับปรุง</div>
+                    <div class="time-value">06:00 — 07:00 น.</div>
+                    <div class="time-note">⚠️ กรุณาหลีกเลี่ยงการใช้งานในช่วงเวลาดังกล่าว</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <div class="section-divider">
+            <div class="section-num">✦</div>
+            <div class="section-label">รายละเอียดการอัพเดต (Release Notes)</div>
+        </div>
+
+        <!-- 1. E-TAX -->
+        <div class="feature-card">
+            <div class="feature-header">
+                <div class="feature-icon" style="background:rgba(43,191,212,0.12)">🧾</div>
+                <div>
+                    <div class="feature-tag">E-TAX</div>
+                    <div class="feature-desc">เพิ่มคำอธิบาย และแก้ไขคำในกล่องข้อความ เพื่อให้ผู้ใช้งานได้สะดวกยิ่งขึ้น
+                    </div>
+                </div>
+            </div>
+            <div class="img-section">
+                <div class="img-grid-2">
+                    <div class="img-wrap" onclick="openLightbox(this)">
+                        <img src="https://storage.googleapis.com/dobybot-public-bucket/company/531/public/Screenshot_2026-04-21_113623.png"
+                            alt="E-TAX update 1" loading="lazy">
+                    </div>
+                    <div class="img-wrap" onclick="openLightbox(this)">
+                        <img src="https://storage.googleapis.com/dobybot-public-bucket/company/531/public/Screenshot_2026-04-21_113657.png"
+                            alt="E-TAX update 2" loading="lazy">
+                    </div>
+                    <div class="img-wrap" onclick="openLightbox(this)">
+                        <img src="https://storage.googleapis.com/dobybot-public-bucket/company/531/public/Screenshot_2026-04-21_113715.png"
+                            alt="E-TAX update 3" loading="lazy">
+                    </div>
+                    <div class="img-wrap" onclick="openLightbox(this)">
+                        <img src="https://storage.googleapis.com/dobybot-public-bucket/company/531/public/Screenshot_2026-04-21_113823.png"
+                            alt="E-TAX update 4" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. CREATE ORDER -->
+        <div class="feature-card">
+            <div class="feature-header">
+                <div class="feature-icon" style="background:rgba(245,158,11,0.12)">🛒</div>
+                <div>
+                    <div class="feature-tag">Create Order</div>
+                    <div class="feature-desc">เพิ่มตัวเลือกประเภทราคาสินค้า <strong style="color:#f07b7b">(VAT Inc / VAT
+                            Exc)</strong>
+                        เพื่อให้ผู้ใช้งานสามารถกำหนดประเภทของราคาสินค้าได้ด้วยตนเองขณะสร้างรายการคำสั่งซื้อ</div>
+                </div>
+            </div>
+
+            <div class="img-section">
+                <div class="img-grid-2" style="margin-bottom:8px">
+                    <div class="img-wrap" onclick="openLightbox(this)">
+                        <img src="https://storage.googleapis.com/dobybot-public-bucket/company/531/public/Screenshot_2026-04-21_114605.png"
+                            alt="Create Order 1" loading="lazy">
+                    </div>
+                    <div class="img-wrap" onclick="openLightbox(this)">
+                        <img src="https://storage.googleapis.com/dobybot-public-bucket/company/531/public/Screenshot_2026-04-21_114724.png"
+                            alt="Create Order 2" loading="lazy">
+                    </div>
+                </div>
+
+                <div class="img-grid-2">
+                    <div class="img-wrap" onclick="openLightbox(this)">
+                        <img src="https://storage.googleapis.com/dobybot-public-bucket/company/531/public/Screenshot_2026-04-21_114813.png"
+                            alt="Inc VAT" loading="lazy">
+                        <div class="img-caption cap-inc">รวมภาษี (Inc VAT)</div>
+                    </div>
+                    <div class="img-wrap" onclick="openLightbox(this)">
+                        <img src="https://storage.googleapis.com/dobybot-public-bucket/company/531/public/Screenshot_2026-04-21_115140.png"
+                            alt="Exc VAT" loading="lazy">
+                        <div class="img-caption cap-exc">แยกภาษี (Exc VAT)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. WEBHOOK -->
+        <div class="feature-card">
+            <div class="feature-header">
+                <div class="feature-icon" style="background:rgba(6,182,212,0.12)">🔗</div>
+                <div>
+                    <div class="feature-tag">Webhook</div>
+                    <div class="feature-desc">เพิ่มข้อมูลราคาสินค้าเข้าไปใน <strong style="color:#3dd6ea">Post Record
+                            Webhook</strong></div>
+                </div>
+            </div>
+            <div class="json-section">
+                <button class="json-toggle" onclick="toggleJson(this)">
+                    <span>📄 ดู Example Payload</span>
+                    <span class="json-arrow">▼</span>
+                </button>
+                <div class="json-body">
+                    <pre id="jsonContent"></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. AUTO PRINT & PICK -->
+        <div class="feature-card">
+            <div class="feature-header">
+                <div class="feature-icon" style="background:rgba(16,185,129,0.12)">🖨️</div>
+                <div>
+                    <div class="feature-tag">Auto Print & Auto Pick</div>
+                    <div class="feature-desc" style="color:#f07b7b;font-weight:600;font-size:12px;margin-bottom:4px;">⚠️
+                        สำหรับลูกค้าที่ใช้งานระบบนี้เท่านั้น</div>
+                    <div class="feature-desc">มีการปรับปรุงระบบให้ทำงานได้ดีขึ้น</div>
+                </div>
+            </div>
+            <div class="bullet-list">
+                <div class="bullet-item">
+                    <div class="bullet-dot"></div>
+                    <div>มีการปรับปรุงระบบ Auto Print & Auto Pick ให้ทำงานได้ดีขึ้น</div>
+                </div>
+                <div class="bullet-highlight">
+                    <span>👤</span>
+                    <div>น้องเจ้าหน้าที่ Support จะติดต่อไปยังลูกค้าเพื่อช่วยเหลือในการอัพเดตระบบ Auto Print & Auto Pick
+                        ให้แก่ผู้ใช้งาน</div>
+                </div>
+            </div>
+            <div class="img-section">
+                <div class="img-wrap img-grid-1" onclick="openLightbox(this)">
+                    <img src="https://storage.googleapis.com/dobybot-public-bucket/company/531/public/Screenshot_2026-04-21_131343.png"
+                        alt="Auto Print Auto Pick" loading="lazy" style="max-height:200px;object-fit:cover;width:100%">
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. ORDER CENTER -->
+        <div class="feature-card">
+            <div class="feature-header">
+                <div class="feature-icon" style="background:rgba(139,92,246,0.12)">⚡</div>
+                <div>
+                    <div class="feature-tag" style="background:#d6f0f5;color:#0e8fa3;">Order Center</div>
+                    <div class="feature-desc">มีการปรับปรุงให้สามารถแสดงข้อมูลได้ไวขึ้น
+                        และเพิ่มประสิทธิภาพการทำงานของหน้า Order Center</div>
+                </div>
+            </div>
+            <div class="perf-card">
+                <div class="perf-icon">🚀</div>
+                <div>
+                    <div class="perf-title">Performance Improvement</div>
+                    <div class="perf-desc">ผู้ใช้งานจะได้รับประสบการณ์การทำงานที่เร็วขึ้น และลื่นไหลยิ่งขึ้น</div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /content -->
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="footer-bot">🤖</div>
+        <div class="footer-logo">DOBYBOT SYSTEM</div>
+        <div class="footer-text">หากมีข้อสงสัยหรือต้องการความช่วยเหลือ<br>กรุณาติดต่อทีม Support</div>
+    </div>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <div class="lightbox-close" onclick="closeLightbox()">✕</div>
+        <img id="lightboxImg" src="" alt="">
+    </div>
+
+    <script>
+        // Lightbox
+        function openLightbox(el) {
+            const img = el.querySelector('img');
+            document.getElementById('lightboxImg').src = img.src;
+            document.getElementById('lightbox').classList.add('active');
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        // JSON toggle
+        function toggleJson(btn) {
+            btn.classList.toggle('open');
+            const body = btn.nextElementSibling;
+            body.classList.toggle('visible');
+        }
+
+        // Syntax highlight JSON
+        const payload = {
+            "id": 1, "name": "6667009696", "order_id": 1,
+            "order_customer": "นาย ก สวัสดี", "order_customerphone": "081XXXXXXX",
+            "order_data": { "integrationName": "lazada", "integrationShop": "1100XXXXXX" },
+            "order_number": "6667009696", "order_trackingno": "TRACK00000XXXX",
+            "order_saleschannel": "LAZADA ABC",
+            "video_url": "https://drive.google.com/file/d/dighencpejfie-xxxx",
+            "receipt_url": "https://cloud.dobybot.com/receipt/?t=adieldo-xxxx",
+            "file_size": 100000, "duration": "60.00", "resolution": "1280x720",
+            "record_date": "2021-10-31T19:28:43+07:00", "upload_date": "2021-10-31T19:29:43+07:00",
+            "upload_by": { "id": 1, "full_name": "admin", "username": "admin@test" },
+            "scan_logs": [
+                { "barcode": "G001-DGBrownCap:1", "time_ms": 5233, "amount": 1 },
+                { "barcode": "G001-DGBrownCap:1", "time_ms": 5831, "amount": 1 },
+                { "barcode": "G005-DGTP", "time_ms": 6264, "amount": 1 },
+                { "barcode": "G003-XDGStand", "time_ms": 6749, "amount": 1 },
+                { "barcode": "G004-XDGWeight", "time_ms": 7523, "amount": 1 },
+                { "barcode": "G004-XDGWeight", "time_ms": 8081, "amount": 1 },
+                { "barcode": "G004-XDGWeight", "time_ms": 8304, "amount": 1 },
+                { "barcode": "G004-XDGWeight", "time_ms": 8500, "amount": 1 }
+            ],
+            "scan_logs_summary": { "G001-DGBrownCap:1": 2, "G005-DGTP": 1, "G003-XDGStand": 1, "G004-XDGWeight": 4 },
+            "tax_invoice_data": {
+                "pretaxamount": 454.63, "totaldiscount": 30, "totalvatamount": 31.82,
+                "grandtotal": 486.45, "discountamount": 10,
+                "tax_inv_rows": [
+                    { "sku": "SKU001", "name": "สมุด", "number": 10, "pricepernumber": 15, "discount": 0, "totalprice": 150, "vatamount": 10.5, "pretaxamount": 139.5, "unittext": "PCS" },
+                    { "sku": "SKU002", "name": "ดินสอ", "number": 10, "pricepernumber": 10, "discount": 10, "totalprice": 90, "vatamount": 6.3, "pretaxamount": 83.7, "unittext": "PCS" }
+                ]
+            }
+        };
+
+        function syntaxHighlight(json) {
+            json = JSON.stringify(json, null, 2);
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                let cls = 'json-num';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) cls = 'json-key';
+                    else cls = 'json-str';
+                } else if (/true|false/.test(match)) cls = 'json-bool';
+                return `<span class="${cls}">${match}</span>`;
+            });
+        }
+
+        document.getElementById('jsonContent').innerHTML = syntaxHighlight(payload);
+    </script>
+</body>
+
+</html>
