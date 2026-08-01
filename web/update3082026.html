@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>แจ้งอัพเดตระบบ DOBYBOT — 3 สิงหาคม 2569</title>
+    <title>อัปเดตระบบ DOBYBOT — 3 สิงหาคม 2569</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap"
         rel="stylesheet">
@@ -256,6 +256,39 @@
             color: var(--text-dim);
         }
 
+        .img-section {
+            padding: 12px;
+        }
+
+        .img-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .img-grid-1 {
+            display: block;
+        }
+
+        .img-wrap {
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: #e8f2f5;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .img-wrap:active {
+            transform: scale(0.98);
+        }
+
+        .img-wrap img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
         .bullet-list {
             padding: 12px 16px;
             display: flex;
@@ -332,6 +365,44 @@
             line-height: 1.6;
         }
 
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 12px;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #fff;
+            cursor: pointer;
+        }
+
         @keyframes slideUp {
             from {
                 opacity: 0;
@@ -363,6 +434,7 @@
 </head>
 
 <body>
+    <!-- HEADER -->
     <div class="header">
         <div class="header-inner">
             <div class="maintenance-badge">
@@ -370,7 +442,7 @@
                 SYSTEM UPDATE
             </div>
             <div class="header-title">
-                แจ้งปรับปรุงอัพเดตระบบ<br>
+                อัปเดตใหม่ เพื่อประสบการณ์ใช้งานที่ดียิ่งขึ้น<br>
                 <span>วันจันทร์ที่ 3 สิงหาคม 2569</span>
             </div>
             <div class="time-card">
@@ -384,132 +456,152 @@
         </div>
     </div>
 
+    <!-- CONTENT -->
     <div class="content">
         <div class="section-divider">
             <div class="section-num">✦</div>
-            <div class="section-label">รายละเอียดการอัพเดต (Release Notes)</div>
+            <div class="section-label">สิ่งที่คุณจะได้รับในอัปเดตนี้</div>
         </div>
 
+        <!-- 1. E-TAX -->
         <div class="feature-card">
             <div class="feature-header">
                 <div class="feature-icon" style="background:rgba(43,191,212,0.12)">🧾</div>
                 <div>
                     <div class="feature-tag">E-TAX</div>
-                    <div class="feature-desc">ปรับปรุงการออกใบกำกับภาษีอิเล็กทรอนิกส์ให้ถูกต้องและสะดวกยิ่งขึ้น</div>
+                    <div class="feature-desc">ออกใบกำกับภาษีอิเล็กทรอนิกส์ได้สะดวก แม่นยำ และมั่นใจยิ่งขึ้น</div>
                 </div>
             </div>
             <div class="bullet-list">
                 <div class="bullet-item">
                     <div class="bullet-dot"></div>
-                    <div>เปลี่ยนภาษาในฟอร์ม e-Tax ได้โดยระบบไม่เด้งกลับไปหน้ากรอกเลขออเดอร์อีกต่อไป</div>
+                    <div>สลับภาษาในฟอร์ม e-Tax ได้ลื่นไหล อยู่หน้าเดิมต่อได้ทันที ไม่ต้องเริ่มกรอกใหม่</div>
                 </div>
                 <div class="bullet-item">
                     <div class="bullet-dot"></div>
-                    <div>คำนวณยอดชำระและการปัดเศษถูกต้องสำหรับร้านที่ใช้ Easy E-Tax
-                        และปุ่มตั้งค่าในหน้าแก้ไขใช้งานได้ครบ</div>
+                    <div>ยอดชำระและการปัดเศษแม่นยำสำหรับร้านที่ใช้ Easy E-Tax พร้อมปุ่มตั้งค่าครบในหน้าแก้ไข
+                        ใช้งานสะดวกขึ้น</div>
                 </div>
                 <div class="bullet-item">
                     <div class="bullet-dot"></div>
-                    <div>แก้ยอด e-Tax แบบ on-hold ที่รายการสินค้าทศนิยมเคยถูกปัดผิดตำแหน่ง</div>
+                    <div>ยอด e-Tax แบบ on-hold คำนวณทศนิยมได้แม่นยำ มั่นใจตัวเลขทุกใบ</div>
                 </div>
                 <div class="bullet-item">
                     <div class="bullet-dot"></div>
-                    <div>แยกเทมเพลตตระกูล DBB เป็น 2 แบบ: <strong>ไทยล้วน</strong> และ <strong>ไทย–อังกฤษ</strong></div>
+                    <div>เลือกเทมเพลต DBB ได้ 2 แบบ: <strong>ไทยล้วน</strong> และ <strong>ไทย–อังกฤษ</strong>
+                        ให้เหมาะกับลูกค้าแต่ละกลุ่ม</div>
                 </div>
                 <div class="bullet-item">
                     <div class="bullet-dot"></div>
-                    <div>สร้างออเดอร์ได้แม้ยังไม่มีเลขประจำตัวผู้เสียภาษี</div>
+                    <div>สร้างออเดอร์ได้ต่อเนื่องแม้ยังไม่มีเลขประจำตัวผู้เสียภาษี ทำงานไม่สะดุด</div>
                 </div>
                 <div class="bullet-item">
                     <div class="bullet-dot"></div>
-                    <div>ป้องกันการออกเอกสาร e-Tax อัตโนมัติ เมื่อ Marketplace ส่งข้อมูลผู้ซื้อมาแบบปิดบัง</div>
+                    <div>สำหรับคำสั่งซื้อจาก Marketplace ระบบจะออกเอกสาร e-Tax เมื่อข้อมูลครบถ้วนเท่านั้น
+                        เพื่อให้เอกสารถูกต้องและลดการออกเอกสารผิด (ปัจจุบัน Lazada ปิดการเข้าถึงข้อมูลผู้ขอ e-Tax)</div>
                 </div>
                 <div class="bullet-item">
                     <div class="bullet-dot"></div>
-                    <div>ไม่เติมข้อมูลฟอร์ม e-Tax อัตโนมัติสำหรับออเดอร์จาก Lazada (เนื่องจาก Lazada มีการปิดข้อมูลผู้ขอ
-                        e-Tax)</div>
-                </div>
-                <div class="bullet-item">
-                    <div class="bullet-dot"></div>
-                    <div>ผู้ซื้อประเภทนิติบุคคลสามารถออกเอกสาร e-Tax เป็นนิติบุคคลได้อย่างถูกต้อง</div>
+                    <div>ผู้ซื้อนิติบุคคลออกเอกสาร e-Tax แบบนิติบุคคลได้ถูกต้อง ครบถ้วนตามประเภท</div>
                 </div>
             </div>
         </div>
 
+        <!-- 2. ORDER & SHIPPING -->
         <div class="feature-card">
             <div class="feature-header">
                 <div class="feature-icon" style="background:rgba(245,158,11,0.12)">📦</div>
                 <div>
                     <div class="feature-tag" style="background:#fdeecf;color:#b26a00;">Order &amp; Shipping</div>
-                    <div class="feature-desc">ปรับปรุงการสร้างออเดอร์และงานจัดส่งให้ราบรื่นขึ้น</div>
+                    <div class="feature-desc">สร้างออเดอร์และจัดส่งได้สะดวก รวดเร็ว ราบรื่นยิ่งขึ้น</div>
                 </div>
             </div>
             <div class="bullet-list">
                 <div class="bullet-item">
                     <div class="bullet-dot"></div>
-                    <div>จัดเรียงข้อมูลที่อยู่บนใบปะหน้าพัสดุ (AWB เทมเพลต dobybot) ให้ขนส่งอ่านง่ายขึ้น</div>
+                    <div>ที่อยู่บนใบปะหน้าพัสดุ (AWB เทมเพลต dobybot) อ่านง่าย ชัดเจน ช่วยให้จัดส่งได้แม่นยำ</div>
                 </div>
                 <div class="bullet-item">
                     <div class="bullet-dot"></div>
-                    <div>ซิงก์บาร์โค้ดจาก Zort</div>
+                    <div>ซิงก์บาร์โค้ดจาก Zort อัตโนมัติ เชื่อมต่อข้อมูลสะดวกขึ้น</div>
                 </div>
                 <div class="bullet-item">
                     <div class="bullet-dot"></div>
-                    <div>โหมดสร้างออเดอร์จากชื่อวิดีโอ — แสดงโหมดที่เปิดอยู่บนหน้า Record และเพิ่มโหมดเสริมสำหรับ Serial
-                        No.</div>
+                    <div>สร้างออเดอร์จากชื่อวิดีโอได้ง่ายขึ้น เห็นโหมดที่เปิดอยู่บนหน้า Record ชัดเจน
+                        พร้อมโหมดเสริมสำหรับ Serial No.</div>
                 </div>
                 <div class="bullet-item">
                     <div class="bullet-dot"></div>
-                    <div>ปรับข้อความแจ้งเตือนให้ถูกต้องยิ่งขึ้น</div>
+                    <div>ข้อความแจ้งเตือนสื่อสารชัดเจน เข้าใจง่ายขึ้น</div>
                 </div>
             </div>
         </div>
 
+        <!-- 3. REPORT & PERMISSION -->
         <div class="feature-card">
             <div class="feature-header">
                 <div class="feature-icon" style="background:rgba(139,92,246,0.12)">📊</div>
                 <div>
                     <div class="feature-tag" style="background:#ece3fb;color:#6b46c1;">Report &amp; Permission</div>
-                    <div class="feature-desc">จัดการสิทธิ์การเข้าถึงรายงานได้ละเอียดขึ้น</div>
+                    <div class="feature-desc">จัดการสิทธิ์เข้าถึงรายงานได้ยืดหยุ่นและปลอดภัยยิ่งขึ้น</div>
                 </div>
             </div>
             <div class="bullet-list">
                 <div class="bullet-item">
                     <div class="bullet-dot"></div>
-                    <div>แยกสิทธิ์ <strong>Performance Analysis Report</strong> ออกจาก Performance Report
-                        โดยผู้ใช้เดิมไม่เสียสิทธิ์การเข้าถึง</div>
+                    <div>กำหนดสิทธิ์ <strong>Performance Analysis Report</strong> แยกจาก Performance Report ได้อิสระ
+                        ควบคุมการเข้าถึงตรงตามบทบาท (ผู้ใช้เดิมยังเข้าถึงได้ตามเดิม)</div>
                 </div>
             </div>
         </div>
 
+        <!-- 4. STABILITY -->
         <div class="feature-card">
             <div class="feature-header">
                 <div class="feature-icon" style="background:rgba(16,185,129,0.12)">🛠️</div>
                 <div>
                     <div class="feature-tag" style="background:#d6f5e6;color:#0f8a5f;">Stability</div>
-                    <div class="feature-desc">เพิ่มความเสถียรของระบบโดยรวม</div>
+                    <div class="feature-desc">ระบบเสถียร ทำงานต่อเนื่อง ไว้วางใจได้ยิ่งขึ้น</div>
                 </div>
             </div>
             <div class="bullet-list">
                 <div class="bullet-item">
                     <div class="bullet-dot"></div>
-                    <div>ปรับปรุงความเสถียรของการเชื่อมต่อกับระบบภายนอก</div>
+                    <div>การเชื่อมต่อกับระบบภายนอกเสถียรและต่อเนื่องมากขึ้น งานไม่สะดุด</div>
                 </div>
             </div>
             <div class="perf-card">
                 <div class="perf-icon">🚀</div>
                 <div>
                     <div class="perf-title">Stability Improvement</div>
-                    <div class="perf-desc">ผู้ใช้งานจะได้รับประสบการณ์การทำงานที่เสถียรและต่อเนื่องยิ่งขึ้น</div>
+                    <div class="perf-desc">ทำงานได้ลื่นไหล มั่นใจได้ทุกวัน</div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- FOOTER -->
     <div class="footer">
         <div class="footer-logo">DOBYBOT SYSTEM</div>
         <div class="footer-text">หากมีข้อสงสัยหรือต้องการความช่วยเหลือ<br>กรุณาติดต่อทีม Support</div>
     </div>
+
+    <!-- LIGHTBOX (ใช้เมื่อเพิ่มรูปในการ์ด) -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <div class="lightbox-close" onclick="closeLightbox()">✕</div>
+        <img id="lightboxImg" src="" alt="">
+    </div>
+
+    <script>
+        function openLightbox(el) {
+            const img = el.querySelector('img');
+            document.getElementById('lightboxImg').src = img.src;
+            document.getElementById('lightbox').classList.add('active');
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+    </script>
 </body>
 
 </html>
