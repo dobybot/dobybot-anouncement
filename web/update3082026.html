@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>อัปเดตระบบ DOBYBOT — 3 สิงหาคม 2569</title>
+    <title>แจ้งอัพเดตระบบ DOBYBOT — 3 สิงหาคม 2569</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap"
         rel="stylesheet">
@@ -12,16 +12,12 @@
         :root {
             --bg: #f0f6f8;
             --surface: #ffffff;
-            --surface2: #e8f4f8;
             --border: #c8e2ea;
             --accent: #2bbfd4;
             --accent2: #1aa8bd;
-            --accent3: #f07b7b;
             --text: #1a3040;
-            --text-muted: #6a99ab;
             --text-dim: #22414e;
             --green: #10b981;
-            --red: #f07b7b;
             --tag-bg: #d6f0f5;
             --tag-text: #0e8fa3;
         }
@@ -189,22 +185,26 @@
         }
 
         .section-num {
-            width: 26px;
-            height: 26px;
+            width: 28px;
+            height: 28px;
             background: var(--accent);
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 700;
             color: #fff;
             flex-shrink: 0;
         }
 
+        .section-num.fix {
+            background: #f5a742;
+        }
+
         .section-label {
-            font-size: 13px;
-            font-weight: 600;
+            font-size: 14px;
+            font-weight: 700;
             color: var(--text-dim);
             letter-spacing: 0.3px;
         }
@@ -260,16 +260,6 @@
             padding: 12px;
         }
 
-        .img-grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-        }
-
-        .img-grid-1 {
-            display: block;
-        }
-
         .img-wrap {
             border-radius: 10px;
             overflow: hidden;
@@ -287,6 +277,26 @@
             width: 100%;
             display: block;
             object-fit: cover;
+        }
+
+        .img-caption {
+            padding: 6px 8px;
+            font-size: 11px;
+            color: #22414e;
+            font-weight: 500;
+            background: #daedf3;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .img-caption::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--green);
+            flex-shrink: 0;
         }
 
         .bullet-list {
@@ -312,6 +322,19 @@
             border-radius: 50%;
             margin-top: 7px;
             flex-shrink: 0;
+        }
+
+        .bullet-item.fix .bullet-dot {
+            background: #f5a742;
+        }
+
+        .bullet-cat {
+            color: var(--accent2);
+            font-weight: 700;
+        }
+
+        .bullet-item.fix .bullet-cat {
+            color: #d98518;
         }
 
         .perf-card {
@@ -414,22 +437,6 @@
                 transform: translateY(0);
             }
         }
-
-        .feature-card:nth-child(1) {
-            animation-delay: 0.05s;
-        }
-
-        .feature-card:nth-child(2) {
-            animation-delay: 0.1s;
-        }
-
-        .feature-card:nth-child(3) {
-            animation-delay: 0.15s;
-        }
-
-        .feature-card:nth-child(4) {
-            animation-delay: 0.2s;
-        }
     </style>
 </head>
 
@@ -442,7 +449,7 @@
                 SYSTEM UPDATE
             </div>
             <div class="header-title">
-                อัปเดตใหม่ เพื่อประสบการณ์ใช้งานที่ดียิ่งขึ้น<br>
+                แจ้งอัพเดตระบบ<br>
                 <span>วันจันทร์ที่ 3 สิงหาคม 2569</span>
             </div>
             <div class="time-card">
@@ -458,104 +465,63 @@
 
     <!-- CONTENT -->
     <div class="content">
+
+        <!-- ========== ฟีเจอร์ใหม่ ========== -->
         <div class="section-divider">
-            <div class="section-num">✦</div>
-            <div class="section-label">สิ่งที่คุณจะได้รับในอัปเดตนี้</div>
+            <div class="section-num">🆕</div>
+            <div class="section-label">ฟีเจอร์ใหม่</div>
         </div>
 
-        <!-- 1. E-TAX -->
+        <!-- RECORD -->
         <div class="feature-card">
             <div class="feature-header">
-                <div class="feature-icon" style="background:rgba(43,191,212,0.12)">🧾</div>
+                <div class="feature-icon" style="background:rgba(245,158,11,0.12)">🎬</div>
                 <div>
-                    <div class="feature-tag">E-TAX</div>
-                    <div class="feature-desc">ออกใบกำกับภาษีอิเล็กทรอนิกส์ได้สะดวก แม่นยำ และมั่นใจยิ่งขึ้น</div>
+                    <div class="feature-tag" style="background:#fdeecf;color:#b26a00;">Record</div>
+                    <div class="feature-desc">เพิ่มความสะดวกในการสร้างออเดอร์จากหน้า Record</div>
                 </div>
             </div>
             <div class="bullet-list">
                 <div class="bullet-item">
                     <div class="bullet-dot"></div>
-                    <div>สลับภาษาในฟอร์ม e-Tax ได้ลื่นไหล อยู่หน้าเดิมต่อได้ทันที ไม่ต้องเริ่มกรอกใหม่</div>
+                    <div>สร้างออเดอร์จากชื่อวิดีโอได้ง่ายขึ้น เห็นโหมดที่เปิดอยู่บนหน้า Record ชัดเจน
+                        พร้อมโหมดเสริมสำหรับ Serial No.</div>
                 </div>
+            </div>
+        </div>
+
+        <!-- E-TAX -->
+        <div class="feature-card">
+            <div class="feature-header">
+                <div class="feature-icon" style="background:rgba(43,191,212,0.12)">🧾</div>
+                <div>
+                    <div class="feature-tag">E-TAX</div>
+                    <div class="feature-desc">ออกใบกำกับภาษีอิเล็กทรอนิกส์ได้สะดวกและยืดหยุ่นยิ่งขึ้น</div>
+                </div>
+            </div>
+            <div class="bullet-list">
                 <div class="bullet-item">
                     <div class="bullet-dot"></div>
-                    <div>ยอดชำระและการปัดเศษแม่นยำสำหรับร้านที่ใช้ Easy E-Tax พร้อมปุ่มตั้งค่าครบในหน้าแก้ไข
-                        ใช้งานสะดวกขึ้น</div>
-                </div>
-                <div class="bullet-item">
-                    <div class="bullet-dot"></div>
-                    <div>ยอด e-Tax แบบ on-hold คำนวณทศนิยมได้แม่นยำ มั่นใจตัวเลขทุกใบ</div>
+                    <div>ยอดชำระและการปัดเศษ (Rounding) แม่นยำสำหรับร้านที่ใช้ Easy E-Tax พร้อมปุ่มตั้งค่าครบในหน้าแก้ไข
+                    </div>
                 </div>
                 <div class="bullet-item">
                     <div class="bullet-dot"></div>
                     <div>เลือกเทมเพลต DBB ได้ 2 แบบ: <strong>ไทยล้วน</strong> และ <strong>ไทย–อังกฤษ</strong>
                         ให้เหมาะกับลูกค้าแต่ละกลุ่ม</div>
                 </div>
-                <div class="bullet-item">
-                    <div class="bullet-dot"></div>
-                    <div>สร้างออเดอร์ได้ต่อเนื่องแม้ยังไม่มีเลขประจำตัวผู้เสียภาษี ทำงานไม่สะดุด</div>
-                </div>
-                <div class="bullet-item">
-                    <div class="bullet-dot"></div>
-                    <div>สำหรับคำสั่งซื้อจาก Marketplace ระบบจะออกเอกสาร e-Tax เมื่อข้อมูลครบถ้วนเท่านั้น
-                        เพื่อให้เอกสารถูกต้องและลดการออกเอกสารผิด (ปัจจุบัน Lazada ปิดการเข้าถึงข้อมูลผู้ขอ e-Tax)</div>
-                </div>
-                <div class="bullet-item">
-                    <div class="bullet-dot"></div>
-                    <div>ผู้ซื้อนิติบุคคลออกเอกสาร e-Tax แบบนิติบุคคลได้ถูกต้อง ครบถ้วนตามประเภท</div>
+            </div>
+            <div class="img-section">
+                <div class="img-wrap" onclick="openLightbox(this)">
+                    <img src="https://storage2.doby.me/v1/storage/buckets/fakfile/files/6a6d98c4329913902a70/view?project=dobybot"
+                        alt="ตัวอย่างการปัดเศษ (Rounding)" loading="lazy"
+                        onerror="this.onerror=null;this.src='https://placehold.co/700x400/cccccc/ffffff?text=ไม่สามารถโหลดรูปภาพได้';">
+                    <div class="img-caption">ตัวอย่าง: การปัดเศษ (Rounding)</div>
                 </div>
             </div>
         </div>
 
-        <!-- 2. ORDER & SHIPPING -->
-        <div class="feature-card">
-            <div class="feature-header">
-                <div class="feature-icon" style="background:rgba(245,158,11,0.12)">📦</div>
-                <div>
-                    <div class="feature-tag" style="background:#fdeecf;color:#b26a00;">Order &amp; Shipping</div>
-                    <div class="feature-desc">สร้างออเดอร์และจัดส่งได้สะดวก รวดเร็ว ราบรื่นยิ่งขึ้น</div>
-                </div>
-            </div>
-            <div class="bullet-list">
-                <div class="bullet-item">
-                    <div class="bullet-dot"></div>
-                    <div>ที่อยู่บนใบปะหน้าพัสดุ (AWB เทมเพลต dobybot) อ่านง่าย ชัดเจน ช่วยให้จัดส่งได้แม่นยำ</div>
-                </div>
-                <div class="bullet-item">
-                    <div class="bullet-dot"></div>
-                    <div>ซิงก์บาร์โค้ดจาก Zort อัตโนมัติ เชื่อมต่อข้อมูลสะดวกขึ้น</div>
-                </div>
-                <div class="bullet-item">
-                    <div class="bullet-dot"></div>
-                    <div>สร้างออเดอร์จากชื่อวิดีโอได้ง่ายขึ้น เห็นโหมดที่เปิดอยู่บนหน้า Record ชัดเจน
-                        พร้อมโหมดเสริมสำหรับ Serial No.</div>
-                </div>
-                <div class="bullet-item">
-                    <div class="bullet-dot"></div>
-                    <div>ข้อความแจ้งเตือนสื่อสารชัดเจน เข้าใจง่ายขึ้น</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3. REPORT & PERMISSION -->
-        <div class="feature-card">
-            <div class="feature-header">
-                <div class="feature-icon" style="background:rgba(139,92,246,0.12)">📊</div>
-                <div>
-                    <div class="feature-tag" style="background:#ece3fb;color:#6b46c1;">Report &amp; Permission</div>
-                    <div class="feature-desc">จัดการสิทธิ์เข้าถึงรายงานได้ยืดหยุ่นและปลอดภัยยิ่งขึ้น</div>
-                </div>
-            </div>
-            <div class="bullet-list">
-                <div class="bullet-item">
-                    <div class="bullet-dot"></div>
-                    <div>กำหนดสิทธิ์ <strong>Performance Analysis Report</strong> แยกจาก Performance Report ได้อิสระ
-                        ควบคุมการเข้าถึงตรงตามบทบาท (ผู้ใช้เดิมยังเข้าถึงได้ตามเดิม)</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 4. STABILITY -->
+        <!-- STABILITY -->
         <div class="feature-card">
             <div class="feature-header">
                 <div class="feature-icon" style="background:rgba(16,185,129,0.12)">🛠️</div>
@@ -578,7 +544,65 @@
                 </div>
             </div>
         </div>
-    </div>
+
+        <!-- ========== รายการที่แก้ไข/ปรับปรุง ========== -->
+        <div class="section-divider">
+            <div class="section-num fix">🔧</div>
+            <div class="section-label">รายการที่แก้ไขและปรับปรุง</div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-header">
+                <div class="feature-icon" style="background:rgba(245,167,66,0.14)">✅</div>
+                <div>
+                    <div class="feature-tag" style="background:#fdeecf;color:#d98518;">Fixes &amp; Improvements</div>
+                    <div class="feature-desc">ปรับปรุงการทำงานให้ถูกต้องและใช้งานได้ราบรื่นขึ้นในจุดต่าง ๆ</div>
+                </div>
+            </div>
+            <div class="bullet-list">
+                <div class="bullet-item fix">
+                    <div class="bullet-dot"></div>
+                    <div><span class="bullet-cat">ใบปะหน้าพัสดุ:</span> ที่อยู่บนใบปะหน้าพัสดุ (AWB เทมเพลต dobybot)
+                        อ่านง่าย ชัดเจน ช่วยให้จัดส่งได้แม่นยำ</div>
+                </div>
+                <div class="bullet-item fix">
+                    <div class="bullet-dot"></div>
+                    <div><span class="bullet-cat">ออเดอร์:</span> ซิงก์บาร์โค้ดจาก Zort เชื่อมต่อข้อมูลสะดวกขึ้น</div>
+                </div>
+                <div class="bullet-item fix">
+                    <div class="bullet-dot"></div>
+                    <div><span class="bullet-cat">Record:</span> ข้อความแจ้งเตือนสื่อสารชัดเจน เข้าใจง่ายขึ้น</div>
+                </div>
+                <div class="bullet-item fix">
+                    <div class="bullet-dot"></div>
+                    <div><span class="bullet-cat">รายงาน:</span> กำหนดสิทธิ์ Performance Analysis Report แยกจาก
+                        Performance Report ได้อิสระ (ผู้ใช้เดิมยังเข้าถึงได้ตามเดิม)</div>
+                </div>
+                <div class="bullet-item fix">
+                    <div class="bullet-dot"></div>
+                    <div><span class="bullet-cat">e-Tax:</span> สลับภาษาในฟอร์ม e-Tax ได้ลื่นไหล อยู่หน้าเดิมต่อได้ทันที
+                        ไม่ต้องเริ่มกรอกใหม่</div>
+                </div>
+                <div class="bullet-item fix">
+                    <div class="bullet-dot"></div>
+                    <div><span class="bullet-cat">e-Tax:</span>
+                        สร้างออเดอร์ได้ต่อเนื่องแม้ยังไม่มีเลขประจำตัวผู้เสียภาษี ทำงานไม่สะดุด</div>
+                </div>
+                <div class="bullet-item fix">
+                    <div class="bullet-dot"></div>
+                    <div><span class="bullet-cat">e-Tax:</span> สำหรับคำสั่งซื้อจาก Marketplace
+                        ระบบจะออกเอกสารเมื่อข้อมูลครบถ้วนเท่านั้น เพื่อลดการออกเอกสารผิด (ปัจจุบัน Lazada
+                        ปิดการเข้าถึงข้อมูลผู้ขอ e-Tax)</div>
+                </div>
+                <div class="bullet-item fix">
+                    <div class="bullet-dot"></div>
+                    <div><span class="bullet-cat">e-Tax:</span> ผู้ซื้อนิติบุคคลออกเอกสารแบบนิติบุคคลได้ถูกต้อง
+                        ครบถ้วนตามประเภท</div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /content -->
 
     <!-- FOOTER -->
     <div class="footer">
@@ -586,7 +610,7 @@
         <div class="footer-text">หากมีข้อสงสัยหรือต้องการความช่วยเหลือ<br>กรุณาติดต่อทีม Support</div>
     </div>
 
-    <!-- LIGHTBOX (ใช้เมื่อเพิ่มรูปในการ์ด) -->
+    <!-- LIGHTBOX -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
         <div class="lightbox-close" onclick="closeLightbox()">✕</div>
         <img id="lightboxImg" src="" alt="">
