@@ -603,4 +603,73 @@
                     <div class="feature-desc">ปรับปรุงการทำงานให้ถูกต้องและใช้งานได้ราบรื่นขึ้นในจุดต่าง ๆ</div>
                 </div>
             </div>
-            <div class="bullet-list"
+            <div class="bullet-list">
+                <div class="bullet-item fix">
+                    <div class="bullet-dot"></div>
+                    <div><span class="bullet-cat">ใบปะหน้าพัสดุ:</span> ที่อยู่บนใบปะหน้าพัสดุ (AWB เทมเพลต dobybot)
+                        อ่านง่าย ชัดเจน ช่วยให้จัดส่งได้แม่นยำ</div>
+                </div>
+                <div class="bullet-item fix">
+                    <div class="bullet-dot"></div>
+                    <div><span class="bullet-cat">ออเดอร์:</span> ซิงก์บาร์โค้ดจาก Zort เชื่อมต่อข้อมูลสะดวกขึ้น</div>
+                </div>
+                <div class="bullet-item fix">
+                    <div class="bullet-dot"></div>
+                    <div><span class="bullet-cat">Record:</span> ข้อความแจ้งเตือนสื่อสารชัดเจน เข้าใจง่ายขึ้น</div>
+                </div>
+                <div class="bullet-item fix">
+                    <div class="bullet-dot"></div>
+                    <div><span class="bullet-cat">รายงาน:</span> กำหนดสิทธิ์ Performance Analysis Report แยกจาก
+                        Performance Report ได้อิสระ (ผู้ใช้เดิมยังเข้าถึงได้ตามเดิม)</div>
+                </div>
+                <div class="bullet-item fix">
+                    <div class="bullet-dot"></div>
+                    <div><span class="bullet-cat">e-Tax:</span> สลับภาษาในฟอร์ม e-Tax ได้ลื่นไหล อยู่หน้าเดิมต่อได้ทันที
+                        ไม่ต้องเริ่มกรอกใหม่</div>
+                </div>
+                <div class="bullet-item fix">
+                    <div class="bullet-dot"></div>
+                    <div><span class="bullet-cat">e-Tax:</span>
+                        สร้างออเดอร์ได้ต่อเนื่องแม้ยังไม่มีเลขประจำตัวผู้เสียภาษี ทำงานไม่สะดุด</div>
+                </div>
+                <div class="bullet-item fix">
+                    <div class="bullet-dot"></div>
+                    <div><span class="bullet-cat">e-Tax:</span> สำหรับคำสั่งซื้อจาก Marketplace
+                        ระบบจะออกเอกสารเมื่อข้อมูลครบถ้วนเท่านั้น เพื่อลดการออกเอกสารผิด (ปัจจุบัน Lazada
+                        ปิดการเข้าถึงข้อมูลผู้ขอ e-Tax)</div>
+                </div>
+                <div class="bullet-item fix">
+                    <div class="bullet-dot"></div>
+                    <div><span class="bullet-cat">e-Tax:</span> ผู้ซื้อนิติบุคคลออกเอกสารแบบนิติบุคคลได้ถูกต้อง
+                        ครบถ้วนตามประเภท</div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /content -->
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="footer-logo">DOBYBOT SYSTEM</div>
+        <div class="footer-text">หากมีข้อสงสัยหรือต้องการความช่วยเหลือ<br>กรุณาติดต่อทีม Support</div>
+    </div>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <div class="lightbox-close" onclick="closeLightbox()">✕</div>
+        <img id="lightboxImg" src="" alt="">
+    </div>
+
+    <script>
+        function openLightbox(el) {
+            const img = el.querySelector('img');
+            document.getElementById('lightboxImg').src = img.src;
+            document.getElementById('lightbox').classList.add('active');
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+    </script>
+</body>
+
+</html>
