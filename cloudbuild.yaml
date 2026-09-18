@@ -1,28 +1,17 @@
 steps:
-  - id: "Pull Translations from Tolgee (Backend)"
-    name: "node:18"
+  - id: "Ensure Translations Available"
+    name: "gcr.io/cloud-builders/docker"
     entrypoint: /bin/bash
-    env:
-      - "TOLGEE_API_KEY=${_TOLGEE_API_KEY}"
     args:
-      - "-c"
+      - "-ceu"
       - |
-        echo "Pulling translations from Tolgee..."
-        # Use --yes to automatically accept the package installation
-        npx --yes @tolgee/cli pull
-        echo "Translations updated successfully!"
-
-  - id: "Pull Translations from Tolgee"
-    name: "node:18"
-    entrypoint: /bin/bash
-    env:
-      - "TOLGEE_API_KEY=${_TOLGEE_API_KEY}"
-    args:
-      - "-c"
-      - |
-        echo "Pulling translations from Tolgee..."
-        npx @tolgee/cli pull
-        echo "Translations updated successfully!"
+        if [ ! -d lang ]; then
+          docker pull "${_IMAGE_NAME_LATEST}"
+          docker create --name previous-translations "${_IMAGE_NAME_LATEST}"
+          docker cp previous-translations:/usr/share/nginx/html/lang ./lang
+          docker rm previous-translations
+        fi
+        test -n "$$(find lang -type f -name '*.json' -print -quit)"
 
   - id: "Build Container Image"
     name: "gcr.io/cloud-builders/docker"
@@ -122,7 +111,6 @@ substitutions:
   _MAX_INSTANCES: "10"
   _TIMEOUT: 300s
   _DISCORD_WEBHOOK_URL: ""
-  _TOLGEE_API_KEY: ""
 
 images:
   - "${_IMAGE_NAME}"
