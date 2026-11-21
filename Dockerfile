@@ -1,5 +1,5 @@
 # Use nginx alpine for a lightweight image
-FROM nginx:alpine
+FROM nginx:1.30.7-alpine
 
 # Copy nginx configuration
 COPY nginx.conf /etc/nginx/nginx.conf
